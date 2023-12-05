@@ -26,9 +26,9 @@ contract TrusterLenderPool is ReentrancyGuard {
         nonReentrant
         returns (bool)
     {
-        uint256 balanceBefore = token.balanceOf(address(this));
+        uint256 balanceBefore = token.balanceOf(address(this)); // @audit-info 1M
 
-        token.transfer(borrower, amount);
+        token.transfer(borrower, amount); // @audit what if send to himself ?
         target.functionCall(data);
 
         if (token.balanceOf(address(this)) < balanceBefore)

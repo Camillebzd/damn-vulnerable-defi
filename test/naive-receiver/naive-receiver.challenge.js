@@ -38,6 +38,9 @@ describe('[Challenge] Naive receiver', function () {
 
     it('Execution', async function () {
         /** CODE YOUR SOLUTION HERE */
+        // Set up hack contract
+        const HackFlashLoanReceiverFactory = await ethers.getContractFactory('HackFlashLoanReceiver', player);
+        await HackFlashLoanReceiverFactory.deploy(pool.address, receiver.address);
     });
 
     after(async function () {

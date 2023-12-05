@@ -23,6 +23,9 @@ describe('[Challenge] Truster', function () {
 
     it('Execution', async function () {
         /** CODE YOUR SOLUTION HERE */
+        await (await ethers.getContractFactory('HackTrusterLenderPool', player)).deploy(pool.address, token.address, TOKENS_IN_POOL);
+        // await pool.connect(player).flashLoan(TOKENS_IN_POOL, player.address, token.address, "0x");
+        console.log(await token.balanceOf(pool.address));
     });
 
     after(async function () {
